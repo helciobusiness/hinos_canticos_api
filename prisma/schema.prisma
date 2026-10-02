@@ -1,0 +1,42 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Hino {
+  id            Int           @id @default(autoincrement())
+  numero        Int           @unique
+  titulo        String
+  autor         String?
+  letraCompleta String        @map("letra_completa") @db.Text
+  fonteArquivo  String?       @map("fonte_arquivo")
+  sourceHash    String?       @map("source_hash")
+  createdAt     DateTime      @default(now()) @map("created_at")
+  updatedAt     DateTime      @updatedAt @map("updated_at")
+
+  estrofes      HinoEstrofe[]
+
+  @@index([numero])
+  @@index([titulo])
+  @@index([autor])
+  @@map("hinos")
+}
+
+model HinoEstrofe {
+  id        Int      @id @default(autoincrement())
+  hinoId    Int      @map("hino_id")
+  numero    Int
+  tipo      String   @default("estrofe")
+  texto     String   @db.Text
+  createdAt DateTime @default(now()) @map("created_at")
+
+  hino      Hino     @relation(fields: [hinoId], references: [id], onDelete: Cascade)
+
+  @@index([hinoId])
+  @@index([tipo])
+  @@map("hino_estrofes")
+}

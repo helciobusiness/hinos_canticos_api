@@ -1,0 +1,45 @@
+{
+  "name": "hinos-canticos-api",
+  "version": "1.0.0",
+  "description": "API REST para consulta, pesquisa e navegação de Hinos & Cânticos (IEIA)",
+  "main": "dist/server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc && prisma generate",
+    "start": "node dist/server.js",
+    "test": "vitest run",
+    "lint": "tsc --noEmit",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:push": "prisma db push",
+    "db:import": "tsx src/scripts/import-hinos.ts",
+    "db:seed": "tsx src/scripts/import-hinos.ts"
+  },
+  "keywords": [
+    "hinario",
+    "hinos",
+    "fastify",
+    "prisma",
+    "postgresql",
+    "typescript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@fastify/cors": "^9.0.1",
+    "@fastify/swagger": "^8.15.0",
+    "@fastify/swagger-ui": "^3.0.0",
+    "@prisma/client": "^5.20.0",
+    "dotenv": "^16.4.5",
+    "fastify": "^4.28.1",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.16.10",
+    "prisma": "^5.20.0",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.2",
+    "vitest": "^2.1.2"
+  }
+}
